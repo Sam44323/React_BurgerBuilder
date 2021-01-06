@@ -3,6 +3,11 @@ import React, { Component } from 'react';
 import Modal from '../../components/UI/Modal/Modal';
 import Aux from '../Auxiliary/Auxiliary';
 
+/*
+This HOC is used for intercepting the axios requests and repsonse and handle the request and response error
+if any during the fetching
+*/
+
 const withErrorHandler = (WrappedComponent, axios) => {
   return class extends Component {
     state = {
@@ -10,6 +15,8 @@ const withErrorHandler = (WrappedComponent, axios) => {
     };
 
     componentWillMount() {
+      //adding the interceptors before mounting the component so that we can intercept all the http calls
+      //in the child component
       this.reqInterceptor = axios.interceptors.request.use((req) => {
         this.setState({ error: null });
         return req;
@@ -23,6 +30,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
     }
 
     componentWillUnmount() {
+      //destroying the interceptors before unmounting the components
       axios.interceptors.request.eject(this.reqInterceptor);
       axios.interceptors.response.eject(this.resInterceptor);
     }
