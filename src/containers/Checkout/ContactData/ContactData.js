@@ -117,7 +117,11 @@ class ContactData extends Component {
       },
       delivery: this.state.orderForm.deliveryMethod.value,
     };
-    this.props.addOrders(orderValue, this.props.routerfunction);
+    this.props.addOrders(
+      orderValue,
+      this.props.routerfunction,
+      this.props.token
+    );
     this.props.resetIngs();
   };
 
@@ -238,12 +242,14 @@ const mapStateToProps = (state) => {
     ingredients: state.burger.ingredients,
     totalPrice: state.burger.totalPrice,
     loading: state.orders.loading,
+    token: state.auth.tokens,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addOrders: (order, routerFn) => dispatch(addPurchaseOrder(order, routerFn)),
+    addOrders: (order, routerFn, tokenValue) =>
+      dispatch(addPurchaseOrder(order, routerFn, tokenValue)),
     resetIngs: () => dispatch(resetIngredients()),
   };
 };

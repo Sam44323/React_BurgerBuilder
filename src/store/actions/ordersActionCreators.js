@@ -19,11 +19,11 @@ export const purchaseBurgerFailure = (error) => {
 
 //THE ASYNC ACTION CREATORS WHICH WILL DISAPATCH ANY ONE OF THE ACTIONS DEPENDING UPON THE RESPONSE
 
-export const addPurchaseOrder = (orderdata, redirectFunction) => {
+export const addPurchaseOrder = (orderdata, redirectFunction, token) => {
   return (dispatch) => {
     dispatch({ type: actionTypes.SET_LOADING_VALUE });
     axios
-      .post('/orders.json', orderdata)
+      .post(`/orders.json?auth=${token}`, orderdata)
       .then((response) => {
         dispatch(purchaseBurgerSuccess(response.data.name, orderdata));
         redirectFunction.replace('/'); // redirecting to the home page after we dispatch the action of adding the new order
