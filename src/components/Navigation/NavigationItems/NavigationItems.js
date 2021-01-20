@@ -1,16 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import classes from './NavigationItems.css';
 import NavigationItem from './NavigationItem/NavigationItem';
 
-const navigationItems = () => (
+const navigationItems = (props) => (
   <ul className={classes.NavigationItems}>
     <NavigationItem link='/' exact>
       Burger Builder
     </NavigationItem>
-    <NavigationItem link='/orders'>Orders</NavigationItem>
-    <NavigationItem link='/auth'>Authenticate</NavigationItem>
+    {props.authCond && <NavigationItem link='/orders'>Orders</NavigationItem>}
+    <NavigationItem link={props.authCond ? '/logout' : '/auth'}>
+      {props.authCond ? 'Logout' : 'Authenticate'}
+    </NavigationItem>
   </ul>
 );
 
-export default navigationItems;
+const mapStateToProps = (state) => {
+  return {
+    authCond: state.auth.isAuthenticated,
+  };
+};
+
+export default connect(mapStateToProps)(navigationItems);

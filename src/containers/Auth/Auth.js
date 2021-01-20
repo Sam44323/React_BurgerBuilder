@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/indexActionFile';
 
 import classes from './Auth.css';
@@ -70,6 +71,11 @@ class Auth extends Component {
       this.state.controlForm.password,
       this.state.isSignUp
     );
+    if (this.props.totalPrice > 0) {
+      this.props.history.push('/checkout');
+    } else {
+      this.props.history.replace('/');
+    }
   };
 
   switchAuthMode = () => {
@@ -176,6 +182,8 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     err: state.auth.error,
+    isAuthenticated: state.auth.isAuthenticated,
+    totalPrice: state.burger.totalPrice,
   };
 };
 

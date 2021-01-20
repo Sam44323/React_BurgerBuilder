@@ -8,4 +8,4 @@ export {
 } from './burgerBuilderActionCreators';
 
 export { addPurchaseOrder } from './ordersActionCreators';
-export { authMain } from './authActions';
+export { authMain, logout, authStateCheck } from './authActions';

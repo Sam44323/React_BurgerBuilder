@@ -55,6 +55,7 @@ class Orders extends Component {
 const mapStateToProps = (state) => {
   return {
     authToken: state.auth.tokens,
+    authCondition: state.auth.isAuthenticated,
   };
 };
 

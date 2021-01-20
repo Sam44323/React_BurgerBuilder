@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   tokens: null,
   userId: null,
+  isAuthenticated: false,
   error: null,
   loading: false,
 };
@@ -27,6 +28,7 @@ const reducer = (state = initialState, actions) => {
         ...state,
         tokenId: null,
         userId: null,
+        isAuthenticated: false,
       };
 
     case actionTypes.AUTH_SUCCESS:
@@ -35,6 +37,7 @@ const reducer = (state = initialState, actions) => {
         loading: false,
         userId: actions.authData.userId,
         tokens: actions.authData.tokenId,
+        isAuthenticated: true,
       };
 
     default:
