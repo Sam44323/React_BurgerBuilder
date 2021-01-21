@@ -65,7 +65,7 @@ export const authMain = (email, password, signMethod) => {
         ); // storing the expiration date for the token
         localStorage.setItem('token', response.data.idToken);
         localStorage.setItem('expirationTime', expirationTime);
-        localStorage.setItem('userId', response);
+        localStorage.setItem('userId', response.data.localId);
 
         dispatch(authSuccess(response));
         dispatch(checkExpiration(response.data.expiresIn));
@@ -84,12 +84,21 @@ export const authStateCheck = () => {
       dispatch(logout());
     } else {
       const expirationTime = new Date(localStorage.getItem('expirationTime'));
+      console.log(expirationTime);
       if (expirationTime < new Date()) {
         dispatch(logout());
       } else {
-        dispatch(authSuccess(localStorage.getItem('userId')));
-        dispatch.checkExpiration(
-          expirationTime.getSeconds() - new Date().getSeconds()
+        const object = {
+          data: {
+            localId: localStorage.getItem('userId'),
+            tokenId: localStorage.getItem('token'),
+          },
+        };
+        dispatch(authSuccess(object));
+        dispatch(
+          checkExpiration(
+            (expirationTime.getTime() - new Date().getTime()) / 1000
+          )
         );
       }
     }

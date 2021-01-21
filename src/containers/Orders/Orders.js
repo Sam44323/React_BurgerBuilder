@@ -13,15 +13,20 @@ class Orders extends Component {
   };
 
   componentDidMount() {
+    if (!this.props.userId) {
+      return this.props.history.push('/');
+    }
     axios
-      .get('/orders.json?auth=' + this.props.authToken)
+      .get('/orders.json?auth=' + localStorage.getItem('token'))
       .then((res) => {
         const fetchedOrders = [];
         for (let key in res.data) {
-          fetchedOrders.push({
-            ...res.data[key],
-            id: key,
-          });
+          if (res.data[key].userId === this.props.userId) {
+            fetchedOrders.push({
+              ...res.data[key],
+              id: key,
+            });
+          }
         }
         this.setState({ loading: false, orders: fetchedOrders });
         console.log(this.state.orders);
@@ -56,6 +61,7 @@ const mapStateToProps = (state) => {
   return {
     authToken: state.auth.tokens,
     authCondition: state.auth.isAuthenticated,
+    userId: state.auth.userId,
   };
 };
 

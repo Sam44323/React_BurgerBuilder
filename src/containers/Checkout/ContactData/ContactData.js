@@ -116,6 +116,7 @@ class ContactData extends Component {
         country: this.state.orderForm.country.value,
       },
       delivery: this.state.orderForm.deliveryMethod.value,
+      userId: localStorage.getItem('userId'),
     };
     this.props.addOrders(
       orderValue,

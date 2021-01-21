@@ -9,9 +9,11 @@ const navigationItems = (props) => (
     <NavigationItem link='/' exact>
       Burger Builder
     </NavigationItem>
-    {props.authCond && <NavigationItem link='/orders'>Orders</NavigationItem>}
-    <NavigationItem link={props.authCond ? '/logout' : '/auth'}>
-      {props.authCond ? 'Logout' : 'Authenticate'}
+    {props.userId ? (
+      <NavigationItem link='/orders'>Orders</NavigationItem>
+    ) : null}
+    <NavigationItem link={props.userId ? '/logout' : '/auth'}>
+      {props.userId ? 'Logout' : 'Authenticate'}
     </NavigationItem>
   </ul>
 );
@@ -19,6 +21,7 @@ const navigationItems = (props) => (
 const mapStateToProps = (state) => {
   return {
     authCond: state.auth.isAuthenticated,
+    userId: state.auth.userId,
   };
 };
 

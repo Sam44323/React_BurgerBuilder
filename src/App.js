@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { authStateCheck } from './store/actions/indexActionFile';
 
@@ -11,6 +11,10 @@ import Authentication from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.onTryAutoSignUp(); // checking for tokens in the local storage whenever we load the app
+  }
+
   render() {
     return (
       <div>
@@ -34,4 +38,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App));

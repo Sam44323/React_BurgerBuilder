@@ -69,11 +69,13 @@ class BurgerBuilder extends Component {
             ingredientRemoved={(type) => {
               this.props.onRemoveIngredients(type);
             }}
-            isAuthenticated={this.props.auth}
+            isAuthenticated={localStorage.getItem('userId')}
             disabled={disabledInfo}
             purchasable={this.updatePurchasable(this.props.ingredients)}
             ordered={
-              this.props.auth ? this.purchaseHandler : this.sendToAuthenticate
+              localStorage.getItem('userId')
+                ? this.purchaseHandler
+                : this.sendToAuthenticate
             }
             price={this.props.totalPrice}
           />
