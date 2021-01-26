@@ -12,9 +12,11 @@ const navigationItems = (props) => (
     {props.userId ? (
       <NavigationItem link='/orders'>Orders</NavigationItem>
     ) : null}
-    <NavigationItem link={props.userId ? '/logout' : '/auth'}>
-      {props.userId ? 'Logout' : 'Authenticate'}
-    </NavigationItem>
+    {props.userId ? (
+      <NavigationItem link='/logout'>Logout</NavigationItem>
+    ) : (
+      <NavigationItem link='/auth'>Authenticate</NavigationItem>
+    )}
   </ul>
 );
 
