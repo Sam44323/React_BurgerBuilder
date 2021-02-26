@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { authStateCheck } from './store/actions/indexActionFile';
@@ -10,27 +10,25 @@ import Orders from './containers/Orders/Orders';
 import Authentication from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 
-class App extends Component {
-  componentDidMount() {
-    this.props.onTryAutoSignUp(); // checking for tokens in the local storage whenever we load the app
-  }
+const App = (props) => {
+  useEffect(() => {
+    props.onTryAutoSignUp(); // checking for tokens in the local storage whenever we load the app
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <Layout>
-          <Switch>
-            <Route path='/checkout' component={Checkout} />
-            <Route path='/orders' component={Orders} />
-            <Route path='/auth' component={Authentication} />
-            <Route path='/logout' component={Logout} />
-            <Route path='/' exact component={BurgerBuilder} />
-          </Switch>
-        </Layout>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Layout>
+        <Switch>
+          <Route path='/checkout' component={Checkout} />
+          <Route path='/orders' component={Orders} />
+          <Route path='/auth' component={Authentication} />
+          <Route path='/logout' component={Logout} />
+          <Route path='/' exact component={BurgerBuilder} />
+        </Switch>
+      </Layout>
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
