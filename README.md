@@ -2,4 +2,4 @@
 
 ## Used the firebase for backend and data storage and redux for state management
 
-Functionality includes creating a burger, ordering one, and seeing the order data. Authentiation will be added soon
+Functionality includes creating a burger, ordering one, and seeing the order data.
